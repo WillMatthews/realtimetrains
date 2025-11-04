@@ -1,3 +1,3 @@
-module github.com/WillMatthews/gorealtimetrains
+module github.com/WillMatthews/realtimetrains
 
 go 1.23.0
