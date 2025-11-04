@@ -1,4 +1,4 @@
-# gorealtimetrains
+# realtimetrains-go
 
 Minimal Go client for the RealTimeTrains (RTT) Pull / "simple" JSON API.
 
@@ -7,7 +7,7 @@ Official Pull API documentation: https://www.realtimetrains.co.uk/about/develope
 ## Install
 
 ```
-go get github.com/WillMatthews/gorealtimetrains
+go get github.com/WillMatthews/realtimetrains
 ```
 
 ## Usage
@@ -17,7 +17,7 @@ import (
     "context"
     "log"
     "time"
-    "github.com/WillMatthews/gorealtimetrains/rtt"
+    rtt "github.com/WillMatthews/realtimetrains"
 )
 
 func example() {
