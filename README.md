@@ -1,5 +1,7 @@
 # realtimetrains-go
 
+[![Go Tests](https://github.com/WillMatthews/realtimetrains/actions/workflows/go.yml/badge.svg)](https://github.com/WillMatthews/realtimetrains/actions/workflows/go.yml)
+
 Minimal Go client for the RealTimeTrains (RTT) Pull / "simple" JSON API.
 
 Official Pull API documentation: https://www.realtimetrains.co.uk/about/developer/pull/docs/
