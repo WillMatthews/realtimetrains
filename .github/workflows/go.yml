@@ -26,7 +26,6 @@ jobs:
         run: go test -race ./...
 
       - name: Integration tests
-        if: ${{ secrets.RTT_USER }} != '' && ${{ secrets.RTT_PASSWORD }} != ''
         env:
           RTT_USER: ${{ secrets.RTT_USER }}
           RTT_PASSWORD: ${{ secrets.RTT_PASSWORD }}
