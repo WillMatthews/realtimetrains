@@ -24,9 +24,9 @@ func example() {
     client, err := rtt.New("username", "password")
     if err != nil { log.Fatal(err) }
 
-    // Search departures from WAT today
+    // Search departures from KGX today
     ctx := context.Background()
-    cont, err := client.SearchStation(ctx, "WAT", rtt.SearchParams{})
+    cont, err := client.SearchStation(ctx, "KGX", rtt.SearchParams{})
     if err != nil { log.Fatal(err) }
     log.Printf("services: %d", len(cont.Services))
 
@@ -36,4 +36,12 @@ func example() {
     if err != nil { log.Fatal(err) }
     log.Printf("service has %d locations", len(svc.Locations))
 }
+```
+
+## Integration tests
+
+Live integration tests are kept under `integration/` and are guarded by the `integration` build tag so they do not run with the default `go test ./...`. Provide RTT credentials via the `RTT_USER` and `RTT_PASSWORD` environment variables, then run:
+
+```
+RTT_USER=example RTT_PASSWORD=secret go test -tags integration ./integration
 ```

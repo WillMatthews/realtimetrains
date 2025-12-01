@@ -21,3 +21,13 @@ jobs:
 
       - name: Run tests
         run: go test ./...
+
+      - name: Race detector
+        run: go test -race ./...
+
+      - name: Integration tests
+        if: secrets.RTT_USER != '' && secrets.RTT_PASSWORD != ''
+        env:
+          RTT_USER: ${{ secrets.RTT_USER }}
+          RTT_PASSWORD: ${{ secrets.RTT_PASSWORD }}
+        run: go test -tags integration ./integration
