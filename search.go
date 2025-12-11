@@ -19,7 +19,11 @@ type SearchParams struct {
 func (sp *SearchParams) validate() error { return nil } // currently permissive
 
 // SearchStation retrieves departures (default) or arrivals for a station with optional filters.
-func (c *Client) SearchStation(ctx context.Context, station string, p SearchParams) (*Container, error) {
+func (c *Client) SearchStation(
+	ctx context.Context,
+	station string,
+	p SearchParams,
+) (*Container, error) {
 	// build path segments
 	segs := []string{"search", station}
 	if p.To != "" {
