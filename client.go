@@ -56,7 +56,11 @@ func WithBaseURL(raw string) Option {
 }
 
 // WithUserAgent sets a custom User-Agent header.
-func WithUserAgent(ua string) Option { return func(c *Client) error { c.userAgent = ua; return nil } }
+func WithUserAgent(
+	ua string,
+) Option {
+	return func(c *Client) error { c.userAgent = ua; return nil }
+}
 
 // New creates a new API client. Username & password are the RTT credentials (Basic Auth).
 func New(username, password string, opts ...Option) (*Client, error) {
@@ -116,7 +120,11 @@ func (c *Client) doJSON(ctx context.Context, pth string, v any) error {
 	}
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
 		b, _ := io.ReadAll(io.LimitReader(resp.Body, 4<<10))
-		return fmt.Errorf("rtt: unexpected status %d: %s", resp.StatusCode, strings.TrimSpace(string(b)))
+		return fmt.Errorf(
+			"rtt: unexpected status %d: %s",
+			resp.StatusCode,
+			strings.TrimSpace(string(b)),
+		)
 	}
 	dec := json.NewDecoder(resp.Body)
 	if err := dec.Decode(v); err != nil {

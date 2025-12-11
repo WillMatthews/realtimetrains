@@ -22,7 +22,8 @@ func TestUnmarshalSearchSample(t *testing.T) {
 		t.Fatal("expected services")
 	}
 	first := c.Services[0]
-	if first.LocationDetail.GBTTBookedDeparture == nil || first.LocationDetail.GBTTBookedDeparture.String() != "2027" {
+	if first.LocationDetail.GBTTBookedDeparture == nil ||
+		first.LocationDetail.GBTTBookedDeparture.String() != "2027" {
 		t.Fatalf("unexpected departure time: %#v", first.LocationDetail.GBTTBookedDeparture)
 	}
 	if len(first.LocationDetail.Associations) == 0 {
@@ -45,7 +46,8 @@ func TestUnmarshalServiceSample(t *testing.T) {
 	if len(svc.Locations) < 2 {
 		t.Fatalf("expected >=2 locations")
 	}
-	if svc.Locations[0].GBTTBookedDeparture == nil || svc.Locations[0].GBTTBookedDeparture.String() != "1926" {
+	if svc.Locations[0].GBTTBookedDeparture == nil ||
+		svc.Locations[0].GBTTBookedDeparture.String() != "1926" {
 		t.Fatalf("departure mismatch")
 	}
 }
