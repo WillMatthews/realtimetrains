@@ -39,7 +39,6 @@ jobs:
           go install github.com/segmentio/golines@latest
           go install honnef.co/go/tools/cmd/staticcheck@latest
           go install golang.org/x/vuln/cmd/govulncheck@latest
-          go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest
 
       - name: Run tests
         run: go test ./...
