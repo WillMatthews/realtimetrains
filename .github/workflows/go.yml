@@ -11,19 +11,59 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          token: ${{ secrets.SUBMODULES_PAT }}
 
       - name: Set up Go
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v5
         with:
-          go-version: "1.23"
+          go-version-file: go.mod
+          cache: true
+
+      - name: Cache Go tooling
+        id: cache-go-tools
+        uses: actions/cache@v4
+        with:
+          path: ~/go/bin
+          key: ${{ runner.os }}-go-tools-${{ hashFiles('.github/workflows/go-test.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-go-tools-
+
+      - name: Install Go tooling
+        if: steps.cache-go-tools.outputs.cache-hit != 'true'
+        run: |
+          go install github.com/go-task/task/v3/cmd/task@latest
+          go install github.com/segmentio/golines@latest
+          go install honnef.co/go/tools/cmd/staticcheck@latest
+          go install golang.org/x/vuln/cmd/govulncheck@latest
+          go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest
 
       - name: Run tests
         run: go test ./...
 
       - name: Race detector
-        run: go test -race ./...
+        run: task test-race
+
+      - name: Check golines formatting
+        run: task fmt-golines-check
+
+      - name: Check gofmt -s formatting
+        run: task fmt-gofmt-check
+
+      - name: Ensure go.mod and go.sum are tidy
+        run: task mod-tidy-check
+
+      - name: Run go vet
+        run: task vet
+
+      # - name: Run staticcheck
+      #   run: task staticcheck
+
+      # - name: Run govulncheck
+      #   run: task govulncheck
 
       - name: Integration tests
         env:
